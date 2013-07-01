@@ -1,4 +1,4 @@
-Ion Reporter Auto Installer
+Ion Reporter Auto Installer 1.6
 =============================
 
 1. prerequisites.
@@ -15,12 +15,20 @@ Ion Reporter Auto Installer
 
 -  command::
 
-    $USAGE  : sh ir16fetcher.sh <servername/ip address> [the Nth latest build - optional]
-    $EXAMPLE: sh ir16fetcher.sh jagger 2
-    $EXAMPLE: sh ir16fetcher.sh 167.116.6.155
-    $REQUIRE: Please make sure conf file in installation folder ~/IRinstall/ir16 & ~/IRinstall/irmanager
+    $USAGE  : /Users/liy15/bin/ir16installer_v3.sh options
+    $OPTIONS:
+    $   -h      Show this message
+    $   -s      Mandatory. Servername or ip address
+    $   -n      Optional. The n th latest build. Default 1
+    $   -f      Optional. Turn on this flag leads to use "Freshly Install" mode instead of default "Upgrade" mode
+   
+    $EXAMPLE: IR16fetcher -s jagger 2 -f
+    $EXAMPLE: IR16fetcher -s 167.116.6.155
+    $REQUIRE: Please make sure there is a CORRECT and COMPLETE conf file on target server installation folder: ~/IRinstall/ir16 & ~/IRinstall/irmanager16
 
-3. manual installation.         
+
+3. manual installation procedure         
 -------------
 -  JIRA page: https://iontorrent.jira.com/wiki/display/IR/IR1.6+Installation+manual+steps
+
 
