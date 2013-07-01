@@ -6,8 +6,8 @@ Ion Reporter Auto Installer 1.6
 
 -  config file for ir16 and irmanager at folder "~/IRinstall"::
 
-    $/home/iruser/IRinstall/ir16/install.conf
-    $/home/iruser/IRinstall/irmananger/install.conf 
+    /home/iruser/IRinstall/ir16/install.conf
+    /home/iruser/IRinstall/irmananger/install.conf 
 
 
 2. usage. 
@@ -15,12 +15,12 @@ Ion Reporter Auto Installer 1.6
 
 -  command::
 
-    $USAGE  : /Users/liy15/bin/ir16installer_v3.sh options
-    $OPTIONS:
-    $   -h      Show this message
-    $   -s      Mandatory. Servername or ip address
-    $   -n      Optional. The n th latest build. Default 1
-    $   -f      Optional. Turn on this flag leads to use "Freshly Install" mode instead of default "Upgrade" mode
+    USAGE  : /Users/liy15/bin/ir16installer_v3.sh options
+    OPTIONS:
+       -h      Show this message
+       -s      Mandatory. Servername or ip address
+       -n      Optional. The n th latest build. Default 1
+       -f      Optional. Turn on this flag leads to use "Freshly Install" mode instead of default "Upgrade" mode
    
     $EXAMPLE: IR16fetcher -s jagger 2 -f
     $EXAMPLE: IR16fetcher -s 167.116.6.155
