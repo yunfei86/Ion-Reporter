@@ -20,7 +20,7 @@ EOF
 SERVER=
 COUNT=1
 FRESH=
-while getopts “h:s:n:f” OPTION
+while getopts "h:s:n:f" OPTION
 do
      case $OPTION in
          h)

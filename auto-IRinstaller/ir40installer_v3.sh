@@ -11,8 +11,8 @@ OPTIONS:
    -n      Optional. The n th latest build. Default 1
    -f      Optional. Turn on this flag leads to use "Freshly Install" mode instead of default "Upgrade" mode
    
-EXAMPLE: IR40fetcher jagger 2 -f
-EXAMPLE: IR40fetcher 167.116.6.155
+EXAMPLE: ir40installer_v3.sh think1 2 -f
+EXAMPLE: ir40installer_v3.sh 167.116.6.218
 REQUIRE: Please make sure there is a CORRECT and COMPLETE conf file on target server installation folder: ~/IRinstall/ir40 & ~/IRinstall/irmanager40
 EOF
 }
@@ -20,7 +20,7 @@ EOF
 SERVER=
 COUNT=1
 FRESH=
-while getopts Òh:s:n:fÓ OPTION
+while getopts "h:s:n:f" OPTION
 do
      case $OPTION in
          h)
@@ -64,7 +64,7 @@ ping -c1 -W1 $SERVER >$DOWNLOAD_LOG 2>&1 || { echo "Unreachable IP address. Plea
 #searching for new build
 echo "=> Start looking for latest build..."
 
-url=http://167.116.6.182/builds/IonReporter40/TAR
+url=http://167.116.6.115/builds/IonReporter40/TAR
 if [ $COUNT -eq 1 ]; then
     builds=`curl -L $url 2>$DOWNLOAD_LOG | grep IonReporter40-v40 | sed 's/.*\>\(IonReporter40-v40-r0_[0-9]*_[0-9]*\).*/\1/' | sort -r`
 else
@@ -81,7 +81,7 @@ do
     fi
 done
 
-url=http://167.116.6.182/builds/IonReporterManager40/TAR
+url=http://167.116.6.115/builds/IonReporterManager40/TAR
 if [ $COUNT -eq 1 ]; then
     builds=`curl -L $url 2>$DOWNLOAD_LOG | grep IonReporterManager40-vIRManager40 | sed 's/.*\>\(IonReporterManager40-vIRManager40-r0_[0-9]*_[0-9]*\).*/\1/' | sort -r`
 else
@@ -194,25 +194,9 @@ fi
 
 echo
 
-NUM=\`hadoop job -list | head -1 | cut -d\" \" -f1\`
-if [ \$NUM -gt 0 ];then
-    while true; do
-      echo \" *** Checking for analysis running on server - \"\`hadoop job -list | head -1\`\" ---- \" 
-	STDOUT=\`hadoop job -list\`
-        #echo
-        echo -e \" => WARNING: There are \$NUM analysis still running on server. Analysis currently on server:\n\$STDOUT\"
-        #echo
-        echo -n \" => Do you want to continue? [y/n]\"
-        read -p \"[y/n]\" yn
-        case \$yn in
-            [Yy]* ) break;;
-            [Nn]* ) exit 55;;
-            * ) echo ' Please answer yes or no.';;
-        esac
-    done    
-else
-    echo \" *** Checking for analysis running on server - \"\`hadoop job -list | head -1\`\" ---- PASS\"
-fi
+##########################
+###### job checker #######
+##########################
 
 
 echo
@@ -405,13 +389,16 @@ echo "post installation steps"
 #//kill tomcat instance
 kill -9 `ps x | grep tomcat | grep -v grep | awk {'print $1'}`
   
-#//copy .war files over
-# clean up stale transient tomcat files  
-rm -rf /share/apps/apache-tomcat/current/webapps/work /share/apps/apache-tomcat/current/webapps/temp /share/apps/apache-tomcat/current/webapps/ir/
-# clean tomcat log file
-rm -rf /share/apps/apache-tomcat/current/logs/*
-# Copy the ir.war file manually from /share/apps/IR/ionreporter40/ui/ir.war to $CATALINA_HOME/webapps/ directory.
-/bin/cp /share/apps/IR/ionreporter40/ui/ir.war /share/apps/apache-tomcat/current/webapps/  
+#//Copy war files
+rm -rf /share/apps/apache-tomcat/current/webapps/ir /share/apps/apache-tomcat/current/webapps/lifeApp /share/apps/apache-tomcat/current/webapps/irms /share/apps/apache-tomcat/current/webapps/indexProcessor /share/apps/apache-tomcat/current/webapps/*war
+#From IonReporterManager:
+cp /share/apps/IR/ionreportermanager/irms/irms.war /share/apps/apache-tomcat/current/webapps
+cp /share/apps/IR/ionreportermanager/ui/lifeApp.war /share/apps/apache-tomcat/current/webapps
+cp /share/apps/IR/ionreportermanager/ui/indexProcessor.war /share/apps/apache-tomcat/current/webapps
+#From IonReporter:
+cp /share/apps/IR/ionreporter40/lib/java/shared/webservices_mgc/webservices_mgc.war /share/apps/apache-tomcat/current/webapps
+cp /share/apps/IR/ionreporter40/lib/java/shared/webservices_40/webservices_40.war /share/apps/apache-tomcat/current/webapps
+cp /share/apps/IR/ionreporter40/ui/ir.war /share/apps/apache-tomcat/current/webapps
   
 #//start tomcat
 /etc/init.d/tomcat start

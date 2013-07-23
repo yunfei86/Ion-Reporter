@@ -22,8 +22,8 @@ Ion Reporter Auto Installer 1.6
        -n      Optional. The n th latest build. Default 1
        -f      Optional. Turn on this flag leads to use "Freshly Install" mode instead of default "Upgrade" mode
    
-    $EXAMPLE: IR16fetcher -s jagger 2 -f
-    $EXAMPLE: IR16fetcher -s 167.116.6.155
+    $EXAMPLE: ir16installer_v3.sh -s jagger 2 -f
+    $EXAMPLE: ir16installer_v3.sh -s 167.116.6.155
     $REQUIRE: Please make sure there is a CORRECT and COMPLETE conf file on target server installation folder: ~/IRinstall/ir16 & ~/IRinstall/irmanager16
 
 
