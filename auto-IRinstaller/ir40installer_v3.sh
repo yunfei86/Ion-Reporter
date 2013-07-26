@@ -66,15 +66,15 @@ echo "=> Start looking for latest build..."
 
 url=http://167.116.6.115/builds/IonReporter40/TAR
 if [ $COUNT -eq 1 ]; then
-    builds=`curl -L $url 2>$DOWNLOAD_LOG | grep IonReporter40-v40 | sed 's/.*\>\(IonReporter40-v40-r0_[0-9]*_[0-9]*\).*/\1/' | sort -r`
+    builds=`curl -L $url 2>$DOWNLOAD_LOG | grep IonReporter40-v40 | sed 's/.*\(IonReporter40-v40-r0_[0-9]*_[0-9]*\).*/\1/' | sort -r`
 else
-    builds=`curl -L $url 2>$DOWNLOAD_LOG | grep IonReporter40-v40 | sed 's/.*\>\(IonReporter40-v40-r0_[0-9]*_[0-9]*\).*/\1/' | sort -r | head -$COUNT | tail -n1`
+    builds=`curl -L $url 2>$DOWNLOAD_LOG | grep IonReporter40-v40 | sed 's/.*\(IonReporter40-v40-r0_[0-9]*_[0-9]*\).*/\1/' | sort -r | head -$COUNT | tail -n1`
 fi
 
 for i in $builds
 do
-    IR_TARBALL=$url/$i/`curl -L $url/$i 2>$DOWNLOAD_LOG | grep "tar.gz" | sed 's/.*\>\(IonReporter40-.*-[0-9]*_[0-9]*.tar.gz\).*/\1/'` 
-    IR_INSTALL=$url/$i/`curl -L $url/$i 2>$DOWNLOAD_LOG | grep "install.sh" | sed 's/.*\>\(install.sh\).*/\1/'`
+    IR_TARBALL=$url/$i/`curl -L $url/$i 2>$DOWNLOAD_LOG | grep "tar.gz" | sed 's/.*\(IonReporter40-.*-[0-9]*_[0-9]*.tar.gz\).*/\1/'` 
+    IR_INSTALL=$url/$i/`curl -L $url/$i 2>$DOWNLOAD_LOG | grep "install.sh" | sed 's/.*\(install.sh\).*/\1/'`
     if [ -n "$IR_INSTALL" ] && [ -n "$IR_TARBALL" ] && [ `curl -L $url/$i 2>$DOWNLOAD_LOG | grep "<tr><td valign=\"top\">" | wc -l` -eq 3 ];then
         echo "*** Find ${COUNT}th latest IR build: $i"  
         break  
@@ -83,14 +83,14 @@ done
 
 url=http://167.116.6.115/builds/IonReporterManager40/TAR
 if [ $COUNT -eq 1 ]; then
-    builds=`curl -L $url 2>$DOWNLOAD_LOG | grep IonReporterManager40-vIRManager40 | sed 's/.*\>\(IonReporterManager40-vIRManager40-r0_[0-9]*_[0-9]*\).*/\1/' | sort -r`
+    builds=`curl -L $url 2>$DOWNLOAD_LOG | grep IonReporterManager40-vIRManager40 | sed 's/.*\(IonReporterManager40-vIRManager40-r0_[0-9]*_[0-9]*\).*/\1/' | sort -r`
 else
-    builds=`curl -L $url 2>$DOWNLOAD_LOG | grep IonReporterManager40-vIRManager40 | sed 's/.*\>\(IonReporterManager40-vIRManager40-r0_[0-9]*_[0-9]*\).*/\1/' | sort -r | head -$COUNT | tail -n1`
+    builds=`curl -L $url 2>$DOWNLOAD_LOG | grep IonReporterManager40-vIRManager40 | sed 's/.*\(IonReporterManager40-vIRManager40-r0_[0-9]*_[0-9]*\).*/\1/' | sort -r | head -$COUNT | tail -n1`
 fi
 for i in $builds
 do
-    IRMANAGER_TARBALL=$url/$i/`curl -L $url/$i 2>$DOWNLOAD_LOG | grep "tar.gz" | sed 's/.*\>\(IonReporterManager40-.*-[0-9]*_[0-9]*.tar.gz\).*/\1/'`
-    IRMANAGER_INSTALL=$url/$i/`curl -L $url/$i 2>$DOWNLOAD_LOG | grep "install.sh" | sed 's/.*\>\(install.sh\).*/\1/'`
+    IRMANAGER_TARBALL=$url/$i/`curl -L $url/$i 2>$DOWNLOAD_LOG | grep "tar.gz" | sed 's/.*\(IonReporterManager40-.*-[0-9]*_[0-9]*.tar.gz\).*/\1/'`
+    IRMANAGER_INSTALL=$url/$i/`curl -L $url/$i 2>$DOWNLOAD_LOG | grep "install.sh" | sed 's/.*\(install.sh\).*/\1/'`
     if [ -n "$IRMANAGER_INSTALL" ] && [ -n "$IRMANAGER_TARBALL" ] && [ `curl -L $url/$i 2>$DOWNLOAD_LOG | grep "<tr><td valign=\"top\">" | wc -l` -eq 3 ];then
         echo "*** Find ${COUNT}th latest IRM build: $i"  
         break  
