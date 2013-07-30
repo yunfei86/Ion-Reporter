@@ -11,7 +11,7 @@ OPTIONS:
    -n      Optional. The n th latest build. Default 1
    -f      Optional. Turn on this flag leads to use "Freshly Install" mode instead of default "Upgrade" mode
    
-EXAMPLE: ir40installer.sh think1 2 -f
+EXAMPLE: ir40installer.sh think1 -n 2 -f
 EXAMPLE: ir40installer.sh 167.116.6.218
 REQUIRE: Please make sure there is a CORRECT and COMPLETE conf file on target server installation folder: ~/IRinstall/ir40 & ~/IRinstall/irmanager40
 EOF
