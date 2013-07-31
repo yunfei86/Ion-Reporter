@@ -217,7 +217,7 @@ IRMANAGER_TAR_C=\`ls -1 \$IRMANAGER40_LOC/*gz | xargs -n1 basename\`
 #echo \"CUR \"\$IR_TAR_C
 #echo \"CUR \"\$IRMANAGER_TAR_C
 
-echo ' => Downloading IR40'
+echo \" => Downloading IR40\"
 if [ \"\$IR_TAR_L\" == \"\$IR_TAR_C\" ];
 then
     while true; do
@@ -242,7 +242,7 @@ else
     wget -q $IR_TARBALL;
 fi
 
-echo ' => Downloading IRMANAGER40 '
+echo \" => Downloading IRMANAGER40\"
 if [ \"\$IRMANAGER_TAR_L\" == \"\$IRMANAGER_TAR_C\" ];
 then
     while true; do
