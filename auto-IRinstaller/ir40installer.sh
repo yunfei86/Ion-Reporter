@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 
 usage()
 {
@@ -216,10 +217,11 @@ IRMANAGER_TAR_C=\`ls -1 \$IRMANAGER40_LOC/*gz | xargs -n1 basename\`
 #echo \"CUR \"\$IR_TAR_C
 #echo \"CUR \"\$IRMANAGER_TAR_C
 
-if [ \$IR_TAR_L == \$IR_TAR_C ];
+echo ' => Downloading IR40'
+if [ \"\$IR_TAR_L\" == \"\$IR_TAR_C\" ];
 then
     while true; do
-        echo -n \" => *** Already latest IR40 build. Download anyway? [y/n]\"
+        echo -n \" *** Already latest IR40 build. Download anyway? [y/n]\"
         read -p \"[y/n]\" yn
         case \$yn in
             [Yy]* )     mkdir -p \$IR40_LOC;
@@ -232,12 +234,19 @@ then
             * ) echo ' Please answer yes or no.';;
         esac
     done   
+else
+    mkdir -p \$IR40_LOC;
+    cd \$IR40_LOC;
+    rm -f install.sh IonReporter40_*.log IonReporter40-40.r0*tar.gz;
+    wget -q $IR_INSTALL; chmod +x install.sh;
+    wget -q $IR_TARBALL;
 fi
 
-if [ \$IRMANAGER_TAR_L == \$IRMANAGER_TAR_C ];
+echo ' => Downloading IRMANAGER40 '
+if [ \"\$IRMANAGER_TAR_L\" == \"\$IRMANAGER_TAR_C\" ];
 then
     while true; do
-        echo -n \" => *** Already latest irmanager build. Download anyway? [y/n]\"
+        echo -n \" *** Already latest irmanager build. Download anyway? [y/n]\"
         read -p \"[y/n]\" yn
         case \$yn in
             [Yy]* )         mkdir -p \$IRMANAGER40_LOC;
@@ -249,7 +258,13 @@ then
             [Nn]* ) echo ' Continue...';break;;
             * ) echo ' Please answer yes or no.';;
         esac
-    done   
+    done
+else
+    mkdir -p \$IRMANAGER40_LOC;
+    cd \$IRMANAGER40_LOC;
+    rm -f install.sh IonReporterManager_*.log IonReporterManager40-IRManager40.r0*tar.gz;
+    wget -q $IRMANAGER_INSTALL; chmod +x install.sh;
+    wget -q $IRMANAGER_TARBALL;
 fi
 "   
 
