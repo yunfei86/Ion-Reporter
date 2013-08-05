@@ -438,13 +438,14 @@ echo "post installation steps"
 kill -9 `ps x | grep tomcat | grep -v grep | awk {'print $1'}`
   
 #//Copy war files
-rm -rf /share/apps/apache-tomcat/current/webapps/ir \
-/share/apps/apache-tomcat/current/webapps/lifeApp \
-/share/apps/apache-tomcat/current/webapps/irms \
-/share/apps/apache-tomcat/current/webapps/indexProcessor \
-/share/apps/apache-tomcat/current/webapps/ir/webservices_40 \
-/share/apps/apache-tomcat/current/webapps/ir/webservices_mgc \
-/share/apps/apache-tomcat/current/webapps/*war
+rm -rf /share/apps/apache-tomcat/current/webapps/ir
+rm -rf /share/apps/apache-tomcat/current/webapps/lifeApp
+rm -rf /share/apps/apache-tomcat/current/webapps/irms
+rm -rf /share/apps/apache-tomcat/current/webapps/indexProcessor
+rm -rf /share/apps/apache-tomcat/current/webapps/webservices_40
+rm -rf /share/apps/apache-tomcat/current/webapps/webservices_mgc
+rm -rf /share/apps/apache-tomcat/current/webapps/*war
+
 #From IonReporterManager:
 cp /share/apps/IR/ionreportermanager/irms/irms.war /share/apps/apache-tomcat/current/webapps
 cp /share/apps/IR/ionreportermanager/ui/lifeApp.war /share/apps/apache-tomcat/current/webapps
