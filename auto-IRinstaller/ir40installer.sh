@@ -444,6 +444,7 @@ rm -rf /share/apps/apache-tomcat/current/webapps/irms
 rm -rf /share/apps/apache-tomcat/current/webapps/indexProcessor
 rm -rf /share/apps/apache-tomcat/current/webapps/webservices_40
 rm -rf /share/apps/apache-tomcat/current/webapps/webservices_mgc
+rm -rf /share/apps/apache-tomcat/current/webapps/grws_1_2
 rm -rf /share/apps/apache-tomcat/current/webapps/*war
 
 #From IonReporterManager:
@@ -454,6 +455,7 @@ cp /share/apps/IR/ionreportermanager/ui/indexProcessor.war /share/apps/apache-to
 cp /share/apps/IR/ionreporter40/lib/java/shared/webservices_mgc/webservices_mgc.war /share/apps/apache-tomcat/current/webapps
 cp /share/apps/IR/ionreporter40/lib/java/shared/webservices_40/webservices_40.war /share/apps/apache-tomcat/current/webapps
 cp /share/apps/IR/ionreporter40/ui/ir.war /share/apps/apache-tomcat/current/webapps
+cp /share/apps/IR/ionreporter40/grws/grws_1_2.war /share/apps/apache-tomcat/current/webapps
   
 #//start tomcat
 /etc/init.d/tomcat start
