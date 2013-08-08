@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -e
 
 usage()
 {
@@ -12,7 +11,7 @@ OPTIONS:
    -n      Optional. The n th latest build. Default 1
    -f      Optional. Turn on this flag leads to use "Freshly Install" mode instead of default "Upgrade" mode
    
-EXAMPLE: ir40installer.sh think1 -n 2 -f
+EXAMPLE: ir40installer.sh think1 2 -f
 EXAMPLE: ir40installer.sh 167.116.6.218
 REQUIRE: Please make sure there is a CORRECT and COMPLETE conf file on target server installation folder: ~/IRinstall/ir40 & ~/IRinstall/irmanager40
 EOF
@@ -230,7 +229,7 @@ then
                         wget -q $IR_INSTALL; chmod +x install.sh;
                         wget -q $IR_TARBALL;
                         break;;
-            [Nn]* ) echo ' Continue...';break;;
+            [Nn]* ) echo ;break;;
             * ) echo ' Please answer yes or no.';;
         esac
     done   
@@ -255,7 +254,7 @@ then
                             wget -q $IRMANAGER_INSTALL; chmod +x install.sh;
                             wget -q $IRMANAGER_TARBALL;
                             break;;
-            [Nn]* ) echo ' Continue...';break;;
+            [Nn]* ) echo ;break;;
             * ) echo ' Please answer yes or no.';;
         esac
     done
@@ -313,7 +312,6 @@ while true; do
         * ) echo "Please answer yes or no.";;
     esac
 done
-
 
 PASS_ENVAR="
 export IR40_LOC=$IR40_LOC
@@ -438,15 +436,13 @@ echo "post installation steps"
 kill -9 `ps x | grep tomcat | grep -v grep | awk {'print $1'}`
   
 #//Copy war files
-rm -rf /share/apps/apache-tomcat/current/webapps/ir
-rm -rf /share/apps/apache-tomcat/current/webapps/lifeApp
-rm -rf /share/apps/apache-tomcat/current/webapps/irms
-rm -rf /share/apps/apache-tomcat/current/webapps/indexProcessor
-rm -rf /share/apps/apache-tomcat/current/webapps/webservices_40
-rm -rf /share/apps/apache-tomcat/current/webapps/webservices_mgc
-rm -rf /share/apps/apache-tomcat/current/webapps/grws_1_2
-rm -rf /share/apps/apache-tomcat/current/webapps/*war
-
+rm -rf /share/apps/apache-tomcat/current/webapps/ir \
+/share/apps/apache-tomcat/current/webapps/lifeApp \
+/share/apps/apache-tomcat/current/webapps/irms \
+/share/apps/apache-tomcat/current/webapps/indexProcessor \
+/share/apps/apache-tomcat/current/webapps/webservices_40 \
+/share/apps/apache-tomcat/current/webapps/webservices_mgc \
+/share/apps/apache-tomcat/current/webapps/*war
 #From IonReporterManager:
 cp /share/apps/IR/ionreportermanager/irms/irms.war /share/apps/apache-tomcat/current/webapps
 cp /share/apps/IR/ionreportermanager/ui/lifeApp.war /share/apps/apache-tomcat/current/webapps
@@ -456,6 +452,7 @@ cp /share/apps/IR/ionreporter40/lib/java/shared/webservices_mgc/webservices_mgc.
 cp /share/apps/IR/ionreporter40/lib/java/shared/webservices_40/webservices_40.war /share/apps/apache-tomcat/current/webapps
 cp /share/apps/IR/ionreporter40/ui/ir.war /share/apps/apache-tomcat/current/webapps
 cp /share/apps/IR/ionreporter40/grws/grws_1_2.war /share/apps/apache-tomcat/current/webapps
+
   
 #//start tomcat
 /etc/init.d/tomcat start
