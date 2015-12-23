@@ -1,4 +1,4 @@
-Ion Reporter Auto Installer 1.6
+Ion Reporter Auto Installer 1.7
 =============================
 
 1. prerequisites.
